@@ -1,0 +1,10 @@
+Best Model: Logistic Regression
+
+               precision    recall  f1-score   support
+
+ Low Risk (0)       0.92      0.93      0.93       376
+High Risk (1)       0.73      0.69      0.71        95
+
+     accuracy                           0.89       471
+    macro avg       0.82      0.81      0.82       471
+ weighted avg       0.88      0.89      0.88       471

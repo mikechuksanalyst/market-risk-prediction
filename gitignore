@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data files (large, auto-generated on run)
+data/raw_prices.csv
+data/features.csv
+
+# Results (auto-generated -- keep Excel and TXT for reference but not CSVs)
+results/model_results.csv
+results/walk_forward_results.csv
+results/classification_report.txt
+
+# Keep these tracked (they document run results):
+# results/all_results.txt
+# results/all_results.xlsx
+# results/figures/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log

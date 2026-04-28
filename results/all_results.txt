@@ -1,0 +1,95 @@
+======================================================================
+  MARKET RISK PREDICTION SYSTEM -- FULL RESULTS
+  Generated: 2026-04-28 14:49:31
+  Data range: 2017-01-01 to 2026-02-20
+  Random seed: 42
+======================================================================
+
+======================================== MODEL METRICS ===============
+
+Model                             CV-AUC   Accuracy   Precision   Recall      F1   ROC-AUC   Brier
+-----------------------------------------------------------------------------------------------
+Baseline (Persistence)             n/a       0.9002      0.7500   0.7579  0.7539     n/a     n/a  
+Logistic Regression               0.8705     0.8854      0.7253   0.6947  0.7097    0.9172  0.1014  <-- BEST
+Ridge Classifier                  0.7953     0.8556      0.6484   0.6211  0.6344    0.8662  0.1587
+Random Forest                     0.9222     0.8917      0.8438   0.5684  0.6792    0.9132  0.0995
+
+Best model: Logistic Regression
+Best ROC-AUC: 0.9172
+
+======================================== CLASSIFICATION REPORT =======
+Model: Logistic Regression
+
+               precision    recall  f1-score   support
+
+ Low Risk (0)       0.92      0.93      0.93       376
+High Risk (1)       0.73      0.69      0.71        95
+
+     accuracy                           0.89       471
+    macro avg       0.82      0.81      0.82       471
+ weighted avg       0.88      0.89      0.88       471
+
+
+======================================== DIEBOLD-MARIANO TEST ========
+H0: equal predictive accuracy vs Naive Persistence
+Loss: squared error on probability forecasts
+
+Model: Logistic Regression
+  DM statistic : -0.1439
+  p-value      : 0.885615
+  HAC bandwidth: 8
+  Fail to reject H0: no statistically significant difference in predictive accuracy.
+
+Model: Ridge Classifier
+  DM statistic : -3.9926
+  p-value      : 0.000065
+  HAC bandwidth: 8
+  Reject H0: ML model has significantly better predictive accuracy (p < 0.05).
+
+Model: Random Forest
+  DM statistic : +0.0298
+  p-value      : 0.976215
+  HAC bandwidth: 8
+  Fail to reject H0: no statistically significant difference in predictive accuracy.
+
+======================================== WALK-FORWARD VALIDATION =====
+
+                     count    mean     std     min     25%     50%     75%     max
+model                                                                             
+Logistic Regression    8.0  0.9238  0.0297  0.8934  0.9029  0.9077  0.9578  0.9616
+Random Forest          8.0  0.9181  0.0244  0.8895  0.9026  0.9137  0.9263  0.9687
+Ridge Classifier       8.0  0.8812  0.0623  0.7677  0.8708  0.8955  0.9072  0.9549
+
+======================================== FEATURE IMPORTANCES (TOP 15) =
+
+Feature                                    MDI   Permutation
+------------------------------------------------------------
+btc_vol_7d                             0.44131       0.13045
+btc_vol_30d                            0.11541       0.01315
+btc_ret                                0.04047       0.00724
+btc_mom7                               0.03706       0.00259
+btc_ret_lag5                           0.03585       0.01050
+btc_mom30                              0.03574       0.00357
+btc_ret_lag1                           0.03546       0.01270
+btc_ret_lag4                           0.03511       0.00527
+btc_ret_lag3                           0.03440       0.00819
+btc_ret_lag2                           0.03060       0.00381
+btc_gold_ratio_lag1                    0.02026       0.00029
+vix_lag3                               0.01928       0.00080
+btc_sp500_ratio_lag1                   0.01599      -0.00061
+vix_vol_30d                            0.01581      -0.00523
+vix_level_lag1                         0.01502      -0.00053
+
+======================================== TRADING SIMULATION (test period) =
+Zero transaction costs. Directional assessment only.
+
+Strategy                              Ann.Ret   Ann.Vol  Sharpe    Max DD   Days In
+-------------------------------------------------------------------------------------
+Buy and Hold (100% BTC)                +6.66%    46.92%    0.14   -49.74%       470
+Model (Logistic Regression)            -7.79%    33.74%   -0.23   -42.40%       379
+Passive (81% BTC, risk-adj.)           +5.37%    37.85%    0.14   -42.59%       470
+Baseline (Persistence)                -20.61%    33.26%   -0.62   -49.75%       375
+
+======================================================================
+  END OF RESULTS
+======================================================================
