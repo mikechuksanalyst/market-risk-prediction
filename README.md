@@ -105,15 +105,20 @@ The MDI value of 0.441 triggered the dominance warning (threshold: 0.30). Permut
 | Passive (81% BTC, risk-adjusted) | +5.37% | 37.85% | 0.14 | -42.59% | 470 |
 | Baseline (Persistence) | -20.61% | 33.26% | -0.62 | -49.75% | 375 |
 
-The trading simulation highlights a critical real-world insight: 
-accurate risk prediction does not guarantee profitability.
+The trading simulation highlights an important real-world insight: 
+strong predictive performance does not automatically translate into profitable trading strategies.
 
-During sustained bull markets, volatility-based risk signals can 
-lead to reduced exposure and missed upside, resulting in lower returns 
-despite strong predictive performance.
+Despite achieving a ROC-AUC of ~0.92, the model underperforms during sustained bullish regimes 
+(such as the 2023–2024 BTC rally), where elevated volatility coincides with strong positive returns.
 
-This demonstrates the importance of aligning model objectives 
-with trading strategy design.
+In these conditions, volatility-based risk signals reduce market exposure at the wrong time, 
+leading to missed upside rather than avoided losses.
+
+This demonstrates a key principle in financial machine learning:
+prediction targets, model outputs, and trading objectives must be aligned.
+
+While the model captures volatility risk effectively, translating that signal into profitability 
+requires alternative strategy design (e.g., directional prediction, position sizing, or multi-factor signals).
 
 ![ROC Curve](results/figures/07_roc_curves.png)
 
