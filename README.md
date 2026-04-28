@@ -1,6 +1,6 @@
 # Market Risk Prediction System
 
-A fully reproducible, end-to-end machine learning pipeline for binary classification of Bitcoin market risk regimes using multi-asset data from January 2017 to February 2026.
+A fully reproducible, End-to-end machine learning system for predicting Bitcoin market risk with strong out-of-sample performance and rigorous time-series validation using multi-asset data from January 2017 to February 2026.
 
 ---
 
@@ -21,6 +21,13 @@ Most ML projects on financial time series cut corners in ways that inflate resul
 
 ---
 
+## 🚀 Key Takeaways
+
+- Achieved strong predictive performance with ROC-AUC of 0.917 on unseen data
+- Demonstrated robust discrimination across 8 walk-forward windows (mean AUC 0.92)
+- Identified volatility clustering as the dominant driver of market risk
+- Showed that strong predictive signals do not always translate to profitability under trending regimes
+
 ## Results
 
 ### Model Performance (Hold-Out Test Set, 471 observations)
@@ -38,7 +45,7 @@ Logistic Regression wins on ROC-AUC (0.9172) and produces the best-calibrated pr
 
 The baseline accuracy of 0.9002 looks high because volatility regimes cluster -- predicting yesterday's label is a strong strategy. The ML models trade some accuracy against the baseline in exchange for meaningfully better probability discrimination, as reflected in the ROC-AUC.
 
-### Classification Report -- Logistic Regression
+### Classification Report - Logistic Regression
 
 ```
                precision    recall  f1-score   support
@@ -98,9 +105,17 @@ The MDI value of 0.441 triggered the dominance warning (threshold: 0.30). Permut
 | Passive (81% BTC, risk-adjusted) | +5.37% | 37.85% | 0.14 | -42.59% | 470 |
 | Baseline (Persistence) | -20.61% | 33.26% | -0.62 | -49.75% | 375 |
 
-The model held BTC on 80.7% of test days. The risk-adjusted passive benchmark (81% BTC held statically) returns +5.37% with the same Sharpe as buy-and-hold. The model returns -7.79%, underperforming the passive by ~13 percentage points annualised on this test window.
+The trading simulation highlights a critical real-world insight: 
+accurate risk prediction does not guarantee profitability.
 
-The 2023-2024 BTC bull run is the main driver of this underperformance. During a sustained uptrend, any strategy that moves to cash on high-risk calls sacrifices returns. Volatility was elevated throughout parts of that period but the direction was strongly positive, which means correct risk predictions still cost money. This is a regime-specific outcome, not a sign the model has no signal -- the walk-forward AUC of 0.92 across all windows confirms the discrimination quality is real. Whether that translates to profitability depends on regime, transaction costs, and position sizing, none of which are modelled here.
+During sustained bull markets, volatility-based risk signals can 
+lead to reduced exposure and missed upside, resulting in lower returns 
+despite strong predictive performance.
+
+This demonstrates the importance of aligning model objectives 
+with trading strategy design.
+
+![ROC Curve](results/figures/07_roc_curves.png)
 
 ---
 
@@ -165,7 +180,7 @@ market-risk-prediction/
 ## Installation
 
 ```bash
-git clone https://github.com/yourusername/market-risk-prediction.git
+git clone [https://github.com/yourusername/market-risk-prediction.git](https://github.com/mikechuksanalyst/market-risk-prediction.git)
 cd market-risk-prediction
 pip install -r requirements.txt
 jupyter notebook market_risk_prediction.ipynb
