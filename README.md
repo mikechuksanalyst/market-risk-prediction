@@ -1,6 +1,6 @@
 # Market Risk Prediction System
 
-A fully reproducible, End-to-end machine learning system for predicting Bitcoin market risk with strong out-of-sample performance and rigorous time-series validation using multi-asset data from January 2017 to February 2026.
+A fully reproducible end-to-end machine learning system for predicting Bitcoin market risk, with strong out-of-sample performance and rigorous time-series validation.
 
 ---
 
