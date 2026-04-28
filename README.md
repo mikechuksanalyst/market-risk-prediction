@@ -180,7 +180,7 @@ market-risk-prediction/
 ## Installation
 
 ```bash
-git clone [https://github.com/yourusername/market-risk-prediction.git](https://github.com/mikechuksanalyst/market-risk-prediction.git)
+git clone [https://github.com/mikechuksanalyst/market-risk-prediction.git]
 cd market-risk-prediction
 pip install -r requirements.txt
 jupyter notebook market_risk_prediction.ipynb
