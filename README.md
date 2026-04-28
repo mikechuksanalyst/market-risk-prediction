@@ -6,7 +6,7 @@ A fully reproducible, End-to-end machine learning system for predicting Bitcoin 
 
 ## Overview
 
-This project predicts whether next-day Bitcoin volatility will enter a **high-risk** or **low-risk** state using daily price data from four assets: Bitcoin (BTC), S&P 500, Gold Futures, and the VIX. The pipeline is built around strict financial ML standards -- no data leakage, time-series aware validation, and rigorous statistical inference.
+This project predicts whether next-day Bitcoin volatility will enter a **high-risk** or **low-risk** state using daily price data from four assets: Bitcoin (BTC), S&P 500, Gold Futures, and the VIX. The pipeline is built around strict financial ML standards; no data leakage, time-series aware validation, and rigorous statistical inference.
 
 ### What makes this different from typical ML on financial data
 
@@ -43,7 +43,7 @@ Most ML projects on financial time series cut corners in ways that inflate resul
 
 Logistic Regression wins on ROC-AUC (0.9172) and produces the best-calibrated probability estimates (Brier 0.1014). Random Forest leads on cross-validation AUC (0.9222) with the tightest CV variance (±0.013), suggesting more stable generalisation across folds. Ridge lags on every metric and is the most volatile in both CV and walk-forward results.
 
-The baseline accuracy of 0.9002 looks high because volatility regimes cluster -- predicting yesterday's label is a strong strategy. The ML models trade some accuracy against the baseline in exchange for meaningfully better probability discrimination, as reflected in the ROC-AUC.
+The baseline accuracy of 0.9002 looks high because volatility regimes cluster, predicting yesterday's label is a strong strategy. The ML models trade some accuracy against the baseline in exchange for meaningfully better probability discrimination, as reflected in the ROC-AUC.
 
 ### Classification Report - Logistic Regression
 
@@ -68,7 +68,7 @@ The model identifies low-risk days reliably (93% recall) and catches about 69% o
 | Ridge Classifier | -3.9926 | 0.0001 | Yes |
 | Random Forest | +0.0298 | 0.9762 | No |
 
-The DM test uses a Newey-West HAC variance estimator (bandwidth=8) -- the correct approach for dependent time-series forecasts, unlike a Welch t-test which assumes independence.
+The DM test uses a Newey-West HAC variance estimator (bandwidth=8), the correct approach for dependent time-series forecasts, unlike a Welch t-test which assumes independence.
 
 Ridge is the only model that is statistically significantly different from the baseline, and in the wrong direction: its probability forecasts are worse than the naive baseline. Logistic Regression and Random Forest do not show statistically significant improvement in probability accuracy over the baseline (p = 0.886 and p = 0.976). This coexists with their strong ROC-AUC because discrimination and calibrated accuracy measure different things. A model can rank predictions correctly (high AUC) without its probabilities being more accurate in absolute terms than a simpler rule.
 
@@ -80,7 +80,7 @@ Ridge is the only model that is statistically significantly different from the b
 | Random Forest | 0.9181 | 0.0244 | 0.8895 | 0.9687 |
 | Ridge Classifier | 0.8812 | 0.0623 | 0.7677 | 0.9549 |
 
-Walk-forward AUC is consistently strong for Logistic Regression and Random Forest across all eight windows covering 2021-2026. Ridge is more volatile -- its minimum of 0.77 in window 1 (Aug 2021-Mar 2022, 57% high-risk days) shows it struggles under class imbalance, consistent with its lack of `class_weight` support. The tighter variance in Random Forest (0.024 vs 0.030 for LR) suggests slightly more stable behaviour over deployment-like conditions.
+Walk-forward AUC is consistently strong for Logistic Regression and Random Forest across all eight windows covering 2021-2026. Ridge is more volatile, its minimum of 0.77 in window 1 (Aug 2021-Mar 2022, 57% high-risk days) shows it struggles under class imbalance, consistent with its lack of `class_weight` support. The tighter variance in Random Forest (0.024 vs 0.030 for LR) suggests slightly more stable behaviour over deployment-like conditions.
 
 ### Feature Importance
 
@@ -94,7 +94,7 @@ Walk-forward AUC is consistently strong for Logistic Regression and Random Fores
 | btc_ret | 0.0371 | +0.0072 |
 | btc_mom7 | 0.0371 | +0.0026 |
 
-The MDI value of 0.441 triggered the dominance warning (threshold: 0.30). Permutation importance on the test set confirmed it is genuinely predictive -- shuffling it causes a 0.130 drop in AUC, ten times larger than the next feature. This is not an MDI artefact. Volatility clustering is one of the most reliable empirical patterns in finance, and the results reflect that directly.
+The MDI value of 0.441 triggered the dominance warning (threshold: 0.30). Permutation importance on the test set confirmed it is genuinely predictive, shuffling it causes a 0.130 drop in AUC, ten times larger than the next feature. This is not an MDI artefact. Volatility clustering is one of the most reliable empirical patterns in finance, and the results reflect that directly.
 
 ### Trading Simulation (Test Period, Zero Transaction Costs)
 
@@ -204,7 +204,7 @@ jupyter notebook market_risk_prediction.ipynb
 - **No transaction costs:** the trading simulation assumes zero spread, zero commission, and instant execution. Real deployment costs would reduce or eliminate the apparent signal.
 - **Execution timing:** a production system would compute the signal at close and execute at the next open, not at the same close.
 - **Non-stationarity:** the 2023-2024 BTC bull run in the test window is a structural regime where risk-avoidance strategies naturally underperform directionally. Walk-forward retraining would be required in production.
-- **Single binary target:** the model predicts only whether next-day volatility is above or below the historical median -- not magnitude, direction, or multi-day drawdown.
+- **Single binary target:** the model predicts only whether next-day volatility is above or below the historical median, not magnitude, direction, or multi-day drawdown.
 - **DM test result:** Logistic Regression and Random Forest do not show statistically significant improvement over the naive baseline in probability forecast accuracy. Strong ROC-AUC and a non-significant DM test can coexist when a model discriminates well in rank-order but does not produce more accurate probabilities in absolute terms.
 
 ---
